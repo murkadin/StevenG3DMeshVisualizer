@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,16 +11,13 @@ public class UIController : MonoBehaviour
     public ModelMovementController movementController;
     public ModelOptionsController modelOptionsController;
 
-    public Button optionsButton;
-    public Button addLightButton;
-    public Button addCameraButton;
-
     public Button translateModelButton;
     public Button rotateModelButton;
     public Button scaleModelButton;
 
     public VisualElement optionsContainer;
-    public VisualElement effectContainer;
+    public VisualElement effectOptionsContainer;
+    public VisualElement modelOptionsContainer;
 
     public ListView modelOptionsListView;
 
@@ -28,30 +26,42 @@ public class UIController : MonoBehaviour
     {
         //Store references to UI objects
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-        addLightButton = root.Q<Button>("AddLight");
-        addCameraButton = root.Q<Button>("AddCamera");
-        optionsButton = root.Q<Button>("Options-Button");
-        translateModelButton = root.Q<Button>("TranslationModel-Button");
-        rotateModelButton = root.Q<Button>("RotateModel-Button");
-        scaleModelButton = root.Q<Button>("ScaleModel-Button");        
 
-        optionsContainer = root.Q<VisualElement>("OptionsContainer");
-        effectContainer = root.Q<VisualElement>("EffectContainer");
+        optionsContainer = root.Q<VisualElement>("GeneralOptions-Container");
+        effectOptionsContainer = root.Q<VisualElement>("EffectOptions-Container");
+        modelOptionsContainer = root.Q<VisualElement>("ModelOptions-Container");
 
-        modelOptionsListView = root.Q<ListView>("ModelOptions-ListView");
+        modelOptionsListView = root.Q<ListView>("DynamicOptions-ListView");
 
         //Setup press events for buttons
-        optionsButton.clicked += OptionsButton_clicked;
-        addLightButton.clicked += AddLightButtonPressed;
-        addCameraButton.clicked += AddCameraButtonPressed;
+        root.Q<Button>("Options-Button").clicked += OptionsButton_clicked;
 
-        translateModelButton.clicked += TranslateModelButton_clicked;
-        rotateModelButton.clicked += RotateModelButton_clicked;
-        scaleModelButton.clicked += ScaleModelButton_clicked;
+        root.Q<Button>("ModelOptions-Button").clicked += () => GeneralOptionSelect(true);
+        root.Q<Button>("EffectOptions-Button").clicked += () => GeneralOptionSelect(false);
+
+        root.Q<Button>("TranslationModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Translate);
+        root.Q<Button>("RotateModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Rotate);
+        root.Q<Button>("ScaleModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Scale);
+
+        root.Q<Button>("AddLight").clicked += LightButton_clicked;
+        root.Q<Button>("AddCamera").clicked += CameraButton_clicked;
 
         root.Q<Button>("Textures-Button").clicked += TexturesButton_clicked;
         root.Q<Button>("Meshes-Button").clicked += MeshesButton_clicked;
         root.Q<Button>("Materials-Button").clicked += MaterialsButton_clicked;
+
+        ResetOptionsMenu();
+    }
+
+    private void SetUpListView(IList itemSource, Func<VisualElement> makeItem, Action<VisualElement, int> bindItem)
+    {
+        modelOptionsListView.makeItem = null;
+        modelOptionsListView.bindItem = null;
+
+        modelOptionsListView.style.display = DisplayStyle.Flex;
+        modelOptionsListView.itemsSource = itemSource;
+        modelOptionsListView.makeItem = makeItem;
+        modelOptionsListView.bindItem = bindItem;
     }
 
     private void MaterialsButton_clicked()
@@ -65,12 +75,8 @@ public class UIController : MonoBehaviour
             button.clicked += () => modelOptionsController.SelectNewMaterial(button.text);
 
         };
-        modelOptionsListView.makeItem = null;
-        modelOptionsListView.bindItem = null;
 
-        modelOptionsListView.itemsSource = modelOptionsController.materialOptions;
-        modelOptionsListView.makeItem = makeItem;
-        modelOptionsListView.bindItem = bindItem;
+        SetUpListView(modelOptionsController.materialOptions, makeItem, bindItem);
     }
 
     private void MeshesButton_clicked()
@@ -83,12 +89,7 @@ public class UIController : MonoBehaviour
             button.text = modelOptionsController.meshOptions[i].buttonName;
             button.clicked += () => modelOptionsController.SelectNewMesh(button.text);
         };
-        modelOptionsListView.makeItem = null;
-        modelOptionsListView.bindItem = null;
-
-        modelOptionsListView.itemsSource = modelOptionsController.meshOptions;
-        modelOptionsListView.makeItem = makeItem;
-        modelOptionsListView.bindItem = bindItem;
+        SetUpListView(modelOptionsController.meshOptions, makeItem, bindItem);
     }
 
     private void TexturesButton_clicked()
@@ -101,43 +102,57 @@ public class UIController : MonoBehaviour
             button.text = modelOptionsController.textureOptions[i].buttonName;
             button.clicked += () => modelOptionsController.SelectNewTexture(button.text);
         };
-        modelOptionsListView.makeItem = null;
-        modelOptionsListView.bindItem = null;
-
-        modelOptionsListView.itemsSource = modelOptionsController.textureOptions;
-        modelOptionsListView.makeItem = makeItem;
-        modelOptionsListView.bindItem = bindItem;
-    }
-
-    private void ScaleModelButton_clicked()
-    {
-        movementController.SetMovementType(ModelMovementController.MovementType.Scale);
-    }
-
-    private void RotateModelButton_clicked()
-    {
-        movementController.SetMovementType(ModelMovementController.MovementType.Rotate);
-    }
-
-    private void TranslateModelButton_clicked()
-    {
-        movementController.SetMovementType(ModelMovementController.MovementType.Translate);
+        SetUpListView(modelOptionsController.textureOptions, makeItem, bindItem);
     }
 
     private void OptionsButton_clicked()
     {
         Debug.Log("OptionsButton_clicked");
-        optionsContainer.style.display = DisplayStyle.None;
-        effectContainer.style.display = DisplayStyle.Flex;
-
+        if (optionsContainer.style.display == DisplayStyle.None)
+            optionsContainer.style.display = DisplayStyle.Flex;
+        else
+            ResetOptionsMenu();
     }
 
-    void AddLightButtonPressed()
+    private void GeneralOptionSelect(bool modelOptionsSelected)
+    {
+        if(modelOptionsSelected)
+        {
+            //If this container is not already displaying, display it and hide the rest of them
+            if (modelOptionsContainer.style.display == DisplayStyle.None)
+            {
+                modelOptionsContainer.style.display = DisplayStyle.Flex;
+
+                effectOptionsContainer.style.display = DisplayStyle.None;
+                modelOptionsListView.style.display = DisplayStyle.None;
+            }
+        }
+        else
+        {
+            if (effectOptionsContainer.style.display == DisplayStyle.None)
+            {
+                effectOptionsContainer.style.display = DisplayStyle.Flex;
+
+                modelOptionsContainer.style.display = DisplayStyle.None;
+                modelOptionsListView.style.display = DisplayStyle.None;
+            }
+        }
+    }
+
+    private void ResetOptionsMenu()
+    {
+        optionsContainer.style.display = DisplayStyle.None;
+        effectOptionsContainer.style.display = DisplayStyle.None;
+        modelOptionsContainer.style.display = DisplayStyle.None;
+        modelOptionsListView.style.display = DisplayStyle.None;
+    }
+
+    void LightButton_clicked()
     {
         Debug.Log("AddLightButtonPressed");
     }
 
-    void AddCameraButtonPressed()
+    void CameraButton_clicked()
     {
         Debug.Log("AddCameraButtonPressed");
 
