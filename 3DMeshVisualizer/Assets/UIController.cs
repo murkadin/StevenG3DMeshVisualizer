@@ -158,6 +158,7 @@ public class UIController : MonoBehaviour
             Toggle toggle = (e as Toggle);
             toggle.AddToClassList("toggle-style");
             toggle.text = effectsManager.lightEffects[i].displayName;
+            toggle.value = effectsManager.GetLightEffectState(effectsManager.lightEffects[i].displayName);
             toggle.RegisterValueChangedCallback((state) => effectsManager.SetLightEffectState(state.newValue, effectsManager.lightEffects[i].displayName));
         };
 
@@ -173,6 +174,7 @@ public class UIController : MonoBehaviour
             Toggle toggle = (e as Toggle);
             toggle.AddToClassList("toggle-style");
             toggle.text = effectsManager.postProcessingEffects[i].displayName;
+            toggle.value = effectsManager.GetPostProcessingEffectState(effectsManager.postProcessingEffects[i].effectName);
             toggle.RegisterValueChangedCallback((state) => effectsManager.SetPostProcessingEffectState(state.newValue, effectsManager.postProcessingEffects[i].effectName));
         };
 

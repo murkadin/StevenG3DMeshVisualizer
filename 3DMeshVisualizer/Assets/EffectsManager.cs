@@ -30,8 +30,18 @@ public class EffectsManager : MonoBehaviour
         volume.profile.components.Find(x => x.name.Contains(effectName)).active = state;
     }
 
+    public bool GetPostProcessingEffectState(string effectName)
+    {
+        return volume.profile.components.Find(x => x.name.Contains(effectName)).active;
+    }
+
     public void SetLightEffectState(bool state, string displayName)
     {
         lightEffects.Find(x => x.displayName == displayName).light.gameObject.SetActive(state);
+    }
+
+    public bool GetLightEffectState(string displayName)
+    {
+        return lightEffects.Find(x => x.displayName == displayName).light.gameObject.activeInHierarchy;
     }
 }
