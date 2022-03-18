@@ -151,7 +151,17 @@ public class UIController : MonoBehaviour
 
     void LightButton_clicked()
     {
-        Debug.Log("AddLightButtonPressed");
+        //Set up the List View to have all of the options for the available post processing effects
+        Func<VisualElement> makeItem = () => new Toggle();
+        Action<VisualElement, int> bindItem = (e, i) =>
+        {
+            Toggle toggle = (e as Toggle);
+            toggle.AddToClassList("toggle-style");
+            toggle.text = effectsManager.lightEffects[i].displayName;
+            toggle.RegisterValueChangedCallback((state) => effectsManager.SetLightEffectState(state.newValue, effectsManager.lightEffects[i].displayName));
+        };
+
+        SetUpListView(effectsManager.lightEffects, makeItem, bindItem);
     }
 
     void PostProcessingButton_clicked()

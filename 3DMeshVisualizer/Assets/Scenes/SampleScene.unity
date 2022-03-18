@@ -872,6 +872,9 @@ MonoBehaviour:
     effectName: Tonemapping
   - displayName: Color Adjustments
     effectName: ColorAdjustments
+  lightEffects:
+  - displayName: Directional Light
+    light: {fileID: 705507994}
 --- !u!4 &1678705513
 Transform:
   m_ObjectHideFlags: 0

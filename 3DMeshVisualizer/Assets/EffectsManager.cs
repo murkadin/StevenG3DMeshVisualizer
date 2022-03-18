@@ -9,6 +9,7 @@ public class EffectsManager : MonoBehaviour
     public Volume volume;
 
     public List<PostProcessingEffect> postProcessingEffects;
+    public List<LightEffect> lightEffects;
 
     [Serializable]
     public class PostProcessingEffect
@@ -17,8 +18,20 @@ public class EffectsManager : MonoBehaviour
         public string effectName;
     }
 
+    [Serializable]
+    public class LightEffect
+    {
+        public string displayName;
+        public Light light;
+    }
+
     public void SetPostProcessingEffectState(bool state, string effectName)
     {
         volume.profile.components.Find(x => x.name.Contains(effectName)).active = state;
+    }
+
+    public void SetLightEffectState(bool state, string displayName)
+    {
+        lightEffects.Find(x => x.displayName == displayName).light.gameObject.SetActive(state);
     }
 }
