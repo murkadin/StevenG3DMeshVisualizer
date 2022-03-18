@@ -22,7 +22,6 @@ public class UIController : MonoBehaviour
 
     public ListView modelOptionsListView;
 
-
     void Start()
     {
         //Store references to UI objects
@@ -72,6 +71,7 @@ public class UIController : MonoBehaviour
         Action<VisualElement, int> bindItem = (e, i) =>
         {
             Button button = (e as Button);
+            button.AddToClassList("button-style");
             button.text = modelOptionsController.materialOptions[i].buttonName;
             button.clicked += () => modelOptionsController.SelectNewMaterial(button.text);
 
@@ -87,6 +87,7 @@ public class UIController : MonoBehaviour
         Action<VisualElement, int> bindItem = (e, i) =>
         {
             Button button = (e as Button);
+            button.AddToClassList("button-style");
             button.text = modelOptionsController.meshOptions[i].buttonName;
             button.clicked += () => modelOptionsController.SelectNewMesh(button.text);
         };
@@ -100,6 +101,7 @@ public class UIController : MonoBehaviour
         Action<VisualElement, int> bindItem = (e, i) =>
         {
             Button button = (e as Button);
+            button.AddToClassList("button-style");
             button.text = modelOptionsController.textureOptions[i].buttonName;
             button.clicked += () => modelOptionsController.SelectNewTexture(button.text);
         };
@@ -159,6 +161,7 @@ public class UIController : MonoBehaviour
         Action<VisualElement, int> bindItem = (e, i) =>
         {
             Toggle toggle = (e as Toggle);
+            toggle.AddToClassList("toggle-style");
             toggle.text = effectsManager.postProcessingEffects[i].displayName;
             toggle.RegisterValueChangedCallback((state) => effectsManager.SetPostProcessingEffectState(state.newValue, effectsManager.postProcessingEffects[i].effectName));
         };
