@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
 {
     public ModelMovementController movementController;
     public ModelOptionsController modelOptionsController;
+    public EffectsManager effectsManager;
 
     public Button translateModelButton;
     public Button rotateModelButton;
@@ -43,8 +44,8 @@ public class UIController : MonoBehaviour
         root.Q<Button>("RotateModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Rotate);
         root.Q<Button>("ScaleModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Scale);
 
-        root.Q<Button>("AddLight").clicked += LightButton_clicked;
-        root.Q<Button>("AddCamera").clicked += CameraButton_clicked;
+        root.Q<Button>("LightEffects-Button").clicked += LightButton_clicked;
+        root.Q<Button>("PostProcessing-Button").clicked += PostProcessingButton_clicked;
 
         root.Q<Button>("Textures-Button").clicked += TexturesButton_clicked;
         root.Q<Button>("Meshes-Button").clicked += MeshesButton_clicked;
@@ -107,7 +108,6 @@ public class UIController : MonoBehaviour
 
     private void OptionsButton_clicked()
     {
-        Debug.Log("OptionsButton_clicked");
         if (optionsContainer.style.display == DisplayStyle.None)
             optionsContainer.style.display = DisplayStyle.Flex;
         else
@@ -152,9 +152,17 @@ public class UIController : MonoBehaviour
         Debug.Log("AddLightButtonPressed");
     }
 
-    void CameraButton_clicked()
+    void PostProcessingButton_clicked()
     {
-        Debug.Log("AddCameraButtonPressed");
+        //Set up the List View to have all of the options for the available post processing effects
+        Func<VisualElement> makeItem = () => new Toggle();
+        Action<VisualElement, int> bindItem = (e, i) =>
+        {
+            Toggle toggle = (e as Toggle);
+            toggle.text = effectsManager.postProcessingEffects[i].displayName;
+            toggle.RegisterValueChangedCallback((state) => effectsManager.SetPostProcessingEffectState(state.newValue, effectsManager.postProcessingEffects[i].effectName));
+        };
 
+        SetUpListView(effectsManager.postProcessingEffects, makeItem, bindItem);
     }
 }
