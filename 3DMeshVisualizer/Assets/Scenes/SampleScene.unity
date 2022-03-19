@@ -963,6 +963,8 @@ MonoBehaviour:
     volumeProfile: {fileID: 11400000, guid: 315f924bc0f40144a97f2ac91add897c, type: 2}
   - displayName: Sunset
     volumeProfile: {fileID: 11400000, guid: 74fee42feb917c6479e10909303e09df, type: 2}
+  - displayName: No Post Processing
+    volumeProfile: {fileID: 0}
   lightEffects:
   - displayName: Directional Light
     light: {fileID: 705507994}
