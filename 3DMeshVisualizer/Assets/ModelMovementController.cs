@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Handles the movement of the model when the user clicks and drags the model
 /// </summary>
-public class ModelMovementController : MonoBehaviour
+public class ModelMovementController : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     /// <summary>
     /// The rate at which we rotate the object
     /// </summary>
     [SerializeField]
-    protected float rotationRate = 0.1f;
+    private float rotationRate = 0.1f;
 
     /// <summary>
     /// The rate at which we scale the object
     /// </summary>
     [SerializeField]
-    protected float scaleRate = 0.01f;
+    private float scaleRate = 0.01f;
 
     /// <summary>
-    /// The 
+    /// The movement that the model will be doing
     /// </summary>
     private MovementType movementType;
 
@@ -35,7 +36,7 @@ public class ModelMovementController : MonoBehaviour
     /// <summary>
     /// The different movement types supported
     /// </summary>
-    public enum MovementType
+    enum MovementType
     {
         Rotate,
         Translate,
@@ -43,18 +44,40 @@ public class ModelMovementController : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets <see cref="movementType"/> to the value passed in.
+    /// Resets the models Scale, Position and Rotation
     /// </summary>
-    /// <param name="type">The type of movement the object should be doing</param>
-    public void SetMovementType(MovementType type)
+    public void RestModelMovement()
     {
-        movementType = type;
+        transform.localScale = Vector3.one;
+        transform.localPosition = Vector3.zero;
+        transform.rotation = Quaternion.identity;
     }
 
     /// <summary>
-    /// Sets initial values to help with movement behavior when the <see cref="OnMouseDrag"/> occurs.
+    /// Is called via <see cref="IDragHandler"/> when the mouse is dragged after clicking on the mesh
     /// </summary>
-    void OnMouseDown()
+    /// <param name="eventData">Mouse data</param>
+    public void OnDrag(PointerEventData eventData)
+    {
+        HandleMovement();
+    }
+
+    /// <summary>
+    /// Is called via <see cref="IPointerDownHandler"/> when the mouse is clicked on the mesh
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            movementType = MovementType.Rotate;
+        else if (eventData.button == PointerEventData.InputButton.Right)
+            movementType = MovementType.Scale;
+        else if (eventData.button == PointerEventData.InputButton.Middle)
+            movementType = MovementType.Translate;
+        SetInitialMovementData();
+    }
+
+    private void SetInitialMovementData()
     {
         mousePrevPosition = Input.mousePosition;
 
@@ -71,14 +94,6 @@ public class ModelMovementController : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
         return Camera.main.ScreenToWorldPoint(mousePos);
-    }
-
-    /// <summary>
-    /// Handles the object behavior when the mouse is dragged.
-    /// </summary>
-    void OnMouseDrag()
-    {
-        HandleMovement();
     }
 
     /// <summary>
@@ -115,5 +130,5 @@ public class ModelMovementController : MonoBehaviour
                 }
                 break;
         }
-    }
+    }    
 }

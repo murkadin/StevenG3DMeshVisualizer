@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 /// </summary>
 public class UIController : MonoBehaviour
 {
-    public ModelMovementController movementController;
     public ModelOptionsController modelOptionsController;
+    public ModelMovementController modelMovementController;
     public EffectsManager effectsManager;
 
     public Button translateModelButton;
@@ -18,8 +18,7 @@ public class UIController : MonoBehaviour
 
     public VisualElement optionsContainer;
     public VisualElement effectOptionsContainer;
-    public VisualElement modelAssetOptionsContainer;
-    public VisualElement modelMovementOptionsContainer;
+    public VisualElement modelOptionsContainer;
 
     public ListView modelOptionsListView;
 
@@ -30,21 +29,15 @@ public class UIController : MonoBehaviour
 
         optionsContainer = root.Q<VisualElement>("GeneralOptions-Container");
         effectOptionsContainer = root.Q<VisualElement>("EffectOptions-Container");
-        modelAssetOptionsContainer = root.Q<VisualElement>("ModelOptions-Container");
-        modelMovementOptionsContainer = root.Q<VisualElement>("ModelMovOptions-Container");
+        modelOptionsContainer = root.Q<VisualElement>("ModelOptions-Container");
 
         modelOptionsListView = root.Q<ListView>("DynamicOptions-ListView");
 
         //Setup press events for buttons
         root.Q<Button>("Options-Button").clicked += OptionsButton_clicked;
 
-        root.Q<Button>("ModelMovementOptions-Button").clicked += ModelMovementOptions_clicked;
-        root.Q<Button>("ModelAssetOptions-Button").clicked += ModelAssetOptions_clicked;
+        root.Q<Button>("ModelOptions-Button").clicked += ModelOptions_clicked;
         root.Q<Button>("EffectOptions-Button").clicked += EffectsOptions_clicked;
-
-        root.Q<Button>("TranslationModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Translate);
-        root.Q<Button>("RotateModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Rotate);
-        root.Q<Button>("ScaleModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Scale);
 
         root.Q<Button>("LightEffects-Button").clicked += LightButton_clicked;
         root.Q<Button>("PostProcessing-Button").clicked += PostProcessingButton_clicked;
@@ -52,7 +45,9 @@ public class UIController : MonoBehaviour
         root.Q<Button>("Textures-Button").clicked += TexturesButton_clicked;
         root.Q<Button>("Meshes-Button").clicked += MeshesButton_clicked;
         root.Q<Button>("Materials-Button").clicked += MaterialsButton_clicked;
+        root.Q<Button>("ResetPosition-Button").clicked += () => modelMovementController.RestModelMovement();
 
+        //On start up, the menu should be in the default closed position.
         ResetOptionsMenu();
     }
 
@@ -62,35 +57,21 @@ public class UIController : MonoBehaviour
         {
             effectOptionsContainer.style.display = DisplayStyle.Flex;
 
-            modelAssetOptionsContainer.style.display = DisplayStyle.None;
+            modelOptionsContainer.style.display = DisplayStyle.None;
             modelOptionsListView.style.display = DisplayStyle.None;
-            modelMovementOptionsContainer.style.display = DisplayStyle.None;
         }
     }
 
-    private void ModelAssetOptions_clicked()
+    private void ModelOptions_clicked()
     {
-        if (modelAssetOptionsContainer.style.display == DisplayStyle.None)
+        if (modelOptionsContainer.style.display == DisplayStyle.None)
         {
-            modelAssetOptionsContainer.style.display = DisplayStyle.Flex;
+            modelOptionsContainer.style.display = DisplayStyle.Flex;
 
             effectOptionsContainer.style.display = DisplayStyle.None;
             modelOptionsListView.style.display = DisplayStyle.None;
-            modelMovementOptionsContainer.style.display = DisplayStyle.None;
         }
-    }
-
-    private void ModelMovementOptions_clicked()
-    {
-        if (modelMovementOptionsContainer.style.display == DisplayStyle.None)
-        {
-            modelMovementOptionsContainer.style.display = DisplayStyle.Flex;
-
-            modelAssetOptionsContainer.style.display = DisplayStyle.None;
-            effectOptionsContainer.style.display = DisplayStyle.None;
-            modelOptionsListView.style.display = DisplayStyle.None;
-        }
-    }
+    }    
 
     private void SetUpListView(IList itemSource, Func<VisualElement> makeItem, Action<VisualElement, int> bindItem)
     {
@@ -159,9 +140,8 @@ public class UIController : MonoBehaviour
     {
         optionsContainer.style.display = DisplayStyle.None;
         effectOptionsContainer.style.display = DisplayStyle.None;
-        modelAssetOptionsContainer.style.display = DisplayStyle.None;
+        modelOptionsContainer.style.display = DisplayStyle.None;
         modelOptionsListView.style.display = DisplayStyle.None;
-        modelMovementOptionsContainer.style.display = DisplayStyle.None;
     }
 
     void LightButton_clicked()
