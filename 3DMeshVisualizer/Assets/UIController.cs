@@ -183,14 +183,13 @@ public class UIController : MonoBehaviour
     void PostProcessingButton_clicked()
     {
         //Set up the List View to have all of the options for the available post processing effects
-        Func<VisualElement> makeItem = () => new Toggle();
+        Func<VisualElement> makeItem = () => new Button();
         Action<VisualElement, int> bindItem = (e, i) =>
         {
-            Toggle toggle = (e as Toggle);
-            toggle.AddToClassList("toggle-style");
-            toggle.text = effectsManager.postProcessingEffects[i].displayName;
-            toggle.value = effectsManager.GetPostProcessingEffectState(effectsManager.postProcessingEffects[i].effectName);
-            toggle.RegisterValueChangedCallback((state) => effectsManager.SetPostProcessingEffectState(state.newValue, effectsManager.postProcessingEffects[i].effectName));
+            Button button = (e as Button);
+            button.AddToClassList("button-style");
+            button.text = effectsManager.postProcessingEffects[i].displayName;
+            button.clicked += () => effectsManager.ActivatePostProcessingEffect(effectsManager.postProcessingEffects[i].displayName);
         };
 
         SetUpListView(effectsManager.postProcessingEffects, makeItem, bindItem);

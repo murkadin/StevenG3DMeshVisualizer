@@ -15,7 +15,7 @@ public class EffectsManager : MonoBehaviour
     public class PostProcessingEffect
     {
         public string displayName;
-        public string effectName;
+        public VolumeProfile volumeProfile;
     }
 
     [Serializable]
@@ -25,9 +25,9 @@ public class EffectsManager : MonoBehaviour
         public Light light;
     }
 
-    public void SetPostProcessingEffectState(bool state, string effectName)
+    public void ActivatePostProcessingEffect(string displayName)
     {
-        volume.profile.components.Find(x => x.name.Contains(effectName)).active = state;
+        volume.profile = postProcessingEffects.Find(x => x.displayName == displayName).volumeProfile;
     }
 
     public bool GetPostProcessingEffectState(string effectName)
