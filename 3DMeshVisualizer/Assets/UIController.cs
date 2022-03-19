@@ -18,7 +18,8 @@ public class UIController : MonoBehaviour
 
     public VisualElement optionsContainer;
     public VisualElement effectOptionsContainer;
-    public VisualElement modelOptionsContainer;
+    public VisualElement modelAssetOptionsContainer;
+    public VisualElement modelMovementOptionsContainer;
 
     public ListView modelOptionsListView;
 
@@ -29,15 +30,17 @@ public class UIController : MonoBehaviour
 
         optionsContainer = root.Q<VisualElement>("GeneralOptions-Container");
         effectOptionsContainer = root.Q<VisualElement>("EffectOptions-Container");
-        modelOptionsContainer = root.Q<VisualElement>("ModelOptions-Container");
+        modelAssetOptionsContainer = root.Q<VisualElement>("ModelOptions-Container");
+        modelMovementOptionsContainer = root.Q<VisualElement>("ModelMovOptions-Container");
 
         modelOptionsListView = root.Q<ListView>("DynamicOptions-ListView");
 
         //Setup press events for buttons
         root.Q<Button>("Options-Button").clicked += OptionsButton_clicked;
 
-        root.Q<Button>("ModelOptions-Button").clicked += () => GeneralOptionSelect(true);
-        root.Q<Button>("EffectOptions-Button").clicked += () => GeneralOptionSelect(false);
+        root.Q<Button>("ModelMovementOptions-Button").clicked += ModelMovementOptions_clicked;
+        root.Q<Button>("ModelAssetOptions-Button").clicked += ModelAssetOptions_clicked;
+        root.Q<Button>("EffectOptions-Button").clicked += EffectsOptions_clicked;
 
         root.Q<Button>("TranslationModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Translate);
         root.Q<Button>("RotateModel-Button").clicked += () => movementController.SetMovementType(ModelMovementController.MovementType.Rotate);
@@ -51,6 +54,42 @@ public class UIController : MonoBehaviour
         root.Q<Button>("Materials-Button").clicked += MaterialsButton_clicked;
 
         ResetOptionsMenu();
+    }
+
+    private void EffectsOptions_clicked()
+    {
+        if (effectOptionsContainer.style.display == DisplayStyle.None)
+        {
+            effectOptionsContainer.style.display = DisplayStyle.Flex;
+
+            modelAssetOptionsContainer.style.display = DisplayStyle.None;
+            modelOptionsListView.style.display = DisplayStyle.None;
+            modelMovementOptionsContainer.style.display = DisplayStyle.None;
+        }
+    }
+
+    private void ModelAssetOptions_clicked()
+    {
+        if (modelAssetOptionsContainer.style.display == DisplayStyle.None)
+        {
+            modelAssetOptionsContainer.style.display = DisplayStyle.Flex;
+
+            effectOptionsContainer.style.display = DisplayStyle.None;
+            modelOptionsListView.style.display = DisplayStyle.None;
+            modelMovementOptionsContainer.style.display = DisplayStyle.None;
+        }
+    }
+
+    private void ModelMovementOptions_clicked()
+    {
+        if (modelMovementOptionsContainer.style.display == DisplayStyle.None)
+        {
+            modelMovementOptionsContainer.style.display = DisplayStyle.Flex;
+
+            modelAssetOptionsContainer.style.display = DisplayStyle.None;
+            effectOptionsContainer.style.display = DisplayStyle.None;
+            modelOptionsListView.style.display = DisplayStyle.None;
+        }
     }
 
     private void SetUpListView(IList itemSource, Func<VisualElement> makeItem, Action<VisualElement, int> bindItem)
@@ -116,37 +155,13 @@ public class UIController : MonoBehaviour
             ResetOptionsMenu();
     }
 
-    private void GeneralOptionSelect(bool modelOptionsSelected)
-    {
-        if(modelOptionsSelected)
-        {
-            //If this container is not already displaying, display it and hide the rest of them
-            if (modelOptionsContainer.style.display == DisplayStyle.None)
-            {
-                modelOptionsContainer.style.display = DisplayStyle.Flex;
-
-                effectOptionsContainer.style.display = DisplayStyle.None;
-                modelOptionsListView.style.display = DisplayStyle.None;
-            }
-        }
-        else
-        {
-            if (effectOptionsContainer.style.display == DisplayStyle.None)
-            {
-                effectOptionsContainer.style.display = DisplayStyle.Flex;
-
-                modelOptionsContainer.style.display = DisplayStyle.None;
-                modelOptionsListView.style.display = DisplayStyle.None;
-            }
-        }
-    }
-
     private void ResetOptionsMenu()
     {
         optionsContainer.style.display = DisplayStyle.None;
         effectOptionsContainer.style.display = DisplayStyle.None;
-        modelOptionsContainer.style.display = DisplayStyle.None;
+        modelAssetOptionsContainer.style.display = DisplayStyle.None;
         modelOptionsListView.style.display = DisplayStyle.None;
+        modelMovementOptionsContainer.style.display = DisplayStyle.None;
     }
 
     void LightButton_clicked()
