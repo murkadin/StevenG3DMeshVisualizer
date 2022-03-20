@@ -1,21 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="UIStyle.uss" />
     <ui:VisualElement name="Background" style="justify-content: flex-start; align-items: flex-start; flex-direction: row; flex-grow: 1;">
-        <ui:Button text="_____&#10;_____&#10;_____" name="Options-Button" class="button-style" style="height: 35px; width: 40px; font-size: 6px;" />
-        <ui:VisualElement name="GeneralOptions-Container" style="height: 158px; width: 166px;">
+        <ui:Button text="_____&#10;_____&#10;_____" name="Options-Button" class="button-style" style="font-size: 6px; width: 45px; height: 35px;" />
+        <ui:VisualElement name="GeneralOptions-Container">
             <ui:Button text="Model Options" display-tooltip-when-elided="true" name="ModelOptions-Button" class="button-style" />
             <ui:Button text="Effect Options" display-tooltip-when-elided="true" name="EffectOptions-Button" class="button-style" />
         </ui:VisualElement>
-        <ui:VisualElement name="EffectOptions-Container" style="height: 262px; width: 165px; align-items: flex-start; justify-content: flex-start; display: flex;">
+        <ui:VisualElement name="EffectOptions-Container" style="display: flex;">
             <ui:Button text="Light Effects" display-tooltip-when-elided="true" name="LightEffects-Button" class="button-style" />
             <ui:Button text="Post Processing" display-tooltip-when-elided="true" name="PostProcessing-Button" class="button-style" />
         </ui:VisualElement>
-        <ui:VisualElement name="ModelOptions-Container" style="height: 237px;">
+        <ui:VisualElement name="ModelOptions-Container">
             <ui:Button text="Textures" display-tooltip-when-elided="true" name="Textures-Button" class="button-style" />
             <ui:Button text="Meshes" display-tooltip-when-elided="true" name="Meshes-Button" class="button-style" />
             <ui:Button text="Materials" display-tooltip-when-elided="true" name="Materials-Button" class="button-style" />
             <ui:Button text="Reset Movement" display-tooltip-when-elided="true" name="ResetPosition-Button" class="button-style" />
         </ui:VisualElement>
-        <ui:ListView focusable="true" name="DynamicOptions-ListView" show-border="true" class="button-style" style="height: 264px; width: 203px;" />
+        <ui:ListView focusable="true" name="DynamicOptions-ListView" show-border="true" class="button-style" style="width: 172px; height: 185px; border-left-color: rgba(161, 161, 161, 0); border-right-color: rgba(161, 161, 161, 0); border-top-color: rgba(161, 161, 161, 0); border-bottom-color: rgba(161, 161, 161, 0);" />
     </ui:VisualElement>
 </ui:UXML>
