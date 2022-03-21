@@ -1,47 +1,88 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+/// <summary>
+/// Handles the scene's Light and Post Processing effects that the user can select.
+/// </summary>
 public class EffectsManager : MonoBehaviour
 {
-    public Volume volume;
+    /// <summary>
+    /// All of the Post Processing effects available to the user.
+    /// </summary>
+    public List<PostProcessingEffect> PostProcessingEffects;
 
-    public List<PostProcessingEffect> postProcessingEffects;
-    public List<LightEffect> lightEffects;
+    /// <summary>
+    /// All of the light effects available to the user.
+    /// </summary>
+    public List<LightEffect> LightEffects;
 
+    /// <summary>
+    /// The volume that will be handling post processing for this scene.
+    /// </summary>
+    [SerializeField]
+    private Volume _volume;
+
+    /// <summary>
+    /// Holds relevant data for a Post Processing effect.
+    /// </summary>
     [Serializable]
     public class PostProcessingEffect
     {
-        public string displayName;
-        public VolumeProfile volumeProfile;
+        /// <summary>
+        /// The name that should display when being shown to the user.
+        /// </summary>
+        public string DisplayName;
+
+        /// <summary>
+        /// A reference to the post processing profile for this effect.
+        /// </summary>
+        public VolumeProfile VolumeProfile;
     }
 
+    /// <summary>
+    /// Holds relevant data for a light effect.
+    /// </summary>
     [Serializable]
     public class LightEffect
     {
-        public string displayName;
-        public Light light;
+        /// <summary>
+        /// The name that should display when being shown to the user.
+        /// </summary>
+        public string DisplayName;
+
+        /// <summary>
+        /// A reference to the light for this effect.
+        /// </summary>
+        public Light Light;
     }
 
+    /// <summary>
+    /// Activates a specific Post Processing effect.
+    /// </summary>
+    /// <param name="displayName">The name displayed to the user when selecting the effect.</param>
     public void ActivatePostProcessingEffect(string displayName)
     {
-        volume.profile = postProcessingEffects.Find(x => x.displayName == displayName).volumeProfile;
+        _volume.profile = PostProcessingEffects.Find(x => x.DisplayName == displayName).VolumeProfile;
     }
 
-    public bool GetPostProcessingEffectState(string effectName)
-    {
-        return volume.profile.components.Find(x => x.name.Contains(effectName)).active;
-    }
-
+    /// <summary>
+    /// Activates a specific light effect.
+    /// </summary>
+    /// <param name="displayName">The name displayed to the user when selecting the effect.</param>
     public void SetLightEffectState(bool state, string displayName)
     {
-        lightEffects.Find(x => x.displayName == displayName).light.gameObject.SetActive(state);
+        LightEffects.Find(x => x.DisplayName == displayName).Light.gameObject.SetActive(state);
     }
 
+    /// <summary>
+    /// Gets the status on a specific light effect.
+    /// </summary>
+    /// <param name="displayName">The name of the effects displayed to the user.</param>
+    /// <returns>The active status of the effect.</returns>
     public bool GetLightEffectState(string displayName)
     {
-        return lightEffects.Find(x => x.displayName == displayName).light.gameObject.activeInHierarchy;
+        return LightEffects.Find(x => x.DisplayName == displayName).Light.gameObject.activeInHierarchy;
     }
 }

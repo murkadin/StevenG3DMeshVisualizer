@@ -245,7 +245,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 5.326459e-39, z: 2.2e-44, w: -2.387723e-39}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -258,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 2.729, z: -0.901}
+  m_LocalPosition: {x: 0, y: 9.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31dda3d276f01848a3c7255240c27fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationRate: 0.1
-  scaleRate: 0.01
+  _rotationRate: 0.1
+  _scaleRate: 0.01
 --- !u!23 &754108956
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c1997577af9075147a649acba41f61cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -388,217 +388,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e9cdfb3372856d4ea950ca91610693b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshOptions:
-  - buttonName: Sphere
-    mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - buttonName: Cube
-    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  - buttonName: Capsule
-    mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  - buttonName: Cylinder
-    mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  - buttonName: Robot
-    mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  materialOptions:
-  - buttonName: Wireframe
-    material: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-  - buttonName: Robot
-    material: {fileID: 2100000, guid: 0aa851515cd3747d6b3b3e461199a2ed, type: 2}
-  textureOptions:
-  - buttonName: Robot
-    texture: {fileID: 2800000, guid: 0a0e8af2869fa45f78e25460db578482, type: 3}
-  - buttonName: Emoji
-    texture: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  MeshOptions:
+  - ButtonName: Sphere
+    Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - ButtonName: Cube
+    Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - ButtonName: Capsule
+    Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  - ButtonName: Cylinder
+    Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - ButtonName: Robot
+    Mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  MaterialOptions:
+  - ButtonName: Default-Lit
+    Material: {fileID: 2100000, guid: c1997577af9075147a649acba41f61cd, type: 2}
+  - ButtonName: Default-Unlit
+    Material: {fileID: 2100000, guid: ec5dd4bed9b23b1479619f93a71cc458, type: 2}
+  - ButtonName: Full Reflection
+    Material: {fileID: 2100000, guid: b42bb70eb8f569447a09840ef0cc91b4, type: 2}
+  - ButtonName: Robot
+    Material: {fileID: 2100000, guid: 0aa851515cd3747d6b3b3e461199a2ed, type: 2}
+  - ButtonName: Wireframe
+    Material: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  TextureOptions:
+  - ButtonName: None
+    Texture: {fileID: 0}
+  - ButtonName: Robot
+    Texture: {fileID: 2800000, guid: 0a0e8af2869fa45f78e25460db578482, type: 3}
+  - ButtonName: Emoji
+    Texture: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,9 +676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d8bfafba5f5244a88038d31d4b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelOptionsController: {fileID: 754108960}
-  modelMovementController: {fileID: 754108955}
-  effectsManager: {fileID: 1678705512}
+  _modelOptionsController: {fileID: 0}
+  _modelMovementController: {fileID: 0}
+  _effectsManager: {fileID: 0}
 --- !u!1 &1678705511
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,27 +708,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ccba12ea09c75443bd6afcd17e1ad68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: {fileID: 20556173}
-  postProcessingEffects:
-  - displayName: No Post Processing
-    volumeProfile: {fileID: 0}
-  - displayName: Fish Eye
-    volumeProfile: {fileID: 11400000, guid: 163d3453424b6104084cd77fdb387cb0, type: 2}
-  - displayName: Monochrome
-    volumeProfile: {fileID: 11400000, guid: df490249a2fa22f43a271017669f25c5, type: 2}
-  - displayName: Nighttime
-    volumeProfile: {fileID: 11400000, guid: dc0713d157f293c46bdd1c0f70a96c8b, type: 2}
-  - displayName: Surveillance Camera
-    volumeProfile: {fileID: 11400000, guid: fd4b6e45391945640b05fbe6618141aa, type: 2}
-  - displayName: Western
-    volumeProfile: {fileID: 11400000, guid: 4c5da29c5e25f2c42a8fc3a375304a5f, type: 2}
-  - displayName: Taking Damage
-    volumeProfile: {fileID: 11400000, guid: 315f924bc0f40144a97f2ac91add897c, type: 2}
-  - displayName: Sunset
-    volumeProfile: {fileID: 11400000, guid: 74fee42feb917c6479e10909303e09df, type: 2}
-  lightEffects:
-  - displayName: Directional Light
-    light: {fileID: 705507994}
+  PostProcessingEffects:
+  - DisplayName: No Post Processing
+    VolumeProfile: {fileID: 0}
+  - DisplayName: Fish Eye
+    VolumeProfile: {fileID: 11400000, guid: 163d3453424b6104084cd77fdb387cb0, type: 2}
+  - DisplayName: Monochrome
+    VolumeProfile: {fileID: 11400000, guid: df490249a2fa22f43a271017669f25c5, type: 2}
+  - DisplayName: Nighttime
+    VolumeProfile: {fileID: 11400000, guid: dc0713d157f293c46bdd1c0f70a96c8b, type: 2}
+  - DisplayName: Surveillance Camera
+    VolumeProfile: {fileID: 11400000, guid: fd4b6e45391945640b05fbe6618141aa, type: 2}
+  - DisplayName: Western
+    VolumeProfile: {fileID: 11400000, guid: 4c5da29c5e25f2c42a8fc3a375304a5f, type: 2}
+  - DisplayName: Taking Damage
+    VolumeProfile: {fileID: 11400000, guid: 315f924bc0f40144a97f2ac91add897c, type: 2}
+  - DisplayName: Sunset
+    VolumeProfile: {fileID: 11400000, guid: 74fee42feb917c6479e10909303e09df, type: 2}
+  LightEffects:
+  - DisplayName: Directional Light
+    Light: {fileID: 705507994}
+  _volume: {fileID: 20556173}
 --- !u!4 &1678705513
 Transform:
   m_ObjectHideFlags: 0

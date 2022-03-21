@@ -1,66 +1,136 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the Mesh, Material and Texture options for the Model.
+/// </summary>
+[RequireComponent(typeof(MeshFilter), typeof(MeshCollider), typeof(MeshRenderer))]
 public class ModelOptionsController : MonoBehaviour
 {
-    MeshFilter modelMesh;
-    MeshCollider modelCollider;
-    MeshRenderer modelRenderer;
+    /// <summary>
+    /// Inspector set mesh options available to the User.
+    /// </summary>
+    public List<MeshOption> MeshOptions;
 
+    /// <summary>
+    /// Inspector set material options available to the User.
+    /// </summary>
+    public List<MaterialOption> MaterialOptions;
+
+    /// <summary>
+    /// Inspector set texture options available to the User.
+    /// </summary>
+    public List<TextureOption> TextureOptions;
+
+    Material _currentMaterial;
+    MeshFilter _modelMesh;
+    MeshCollider _modelCollider;
+    MeshRenderer _modelRenderer;
+
+    /// <summary>
+    /// Holds data for a button that has a name to display to a user.
+    /// </summary>
     [Serializable]
     public class DynamicButton
     {
-        public string buttonName;
+        /// <summary>
+        /// The name that should display for the button.
+        /// </summary>
+        public string ButtonName;
     }
 
+    /// <summary>
+    /// Holds the data needed to display a Mesh Option to the user.
+    /// </summary>
     [Serializable]
     public class MeshOption : DynamicButton
     {
-        public Mesh mesh;
+        /// <summary>
+        /// The mesh for this option.
+        /// </summary>
+        public Mesh Mesh;
     }
 
+    /// <summary>
+    /// Holds the data needed to display a Material Option to the user.
+    /// </summary>
     [Serializable]
     public class MaterialOption : DynamicButton
     {
-        public Material material;
+        /// <summary>
+        /// The material for this option.
+        /// </summary>
+        public Material Material;
     }
 
+    /// <summary>
+    /// Holds the data needed to display a Texture Option to the user.
+    /// </summary>
     [Serializable]
     public class TextureOption : DynamicButton
     {
-        public Texture texture;
+        /// <summary>
+        /// The texture for this option.
+        /// </summary>
+        public Texture Texture;
     }
 
-    public List<MeshOption> meshOptions;
-    public List<MaterialOption> materialOptions;
-    public List<TextureOption> textureOptions;
+    /// <summary>
+    /// Applies the new mesh to the model based on which button was selected.
+    /// </summary>
+    /// <param name="buttonName">The name of the button pressed when selecting the Mesh.</param>
+    public void SelectNewMesh(string buttonName)
+    {
+        Mesh newMesh = MeshOptions.Find(x => x.ButtonName == buttonName).Mesh;
+        _modelMesh.mesh = newMesh;
+        _modelCollider.sharedMesh = newMesh;
+    }
+
+    /// <summary>
+    /// Applies the new material to the model based on which button was selected. This will also carry forward the Texture that was previously selected.
+    /// </summary>
+    /// <param name="buttonName">The name of the button pressed when selecting the Material.</param>
+    public void SelectNewMaterial(string buttonName)
+    {
+        Texture texture = _modelRenderer.sharedMaterial.mainTexture;
+        _modelRenderer.sharedMaterial = MaterialOptions.Find(x => x.ButtonName == buttonName).Material;
+        SetTexture(texture);
+
+        //Now that we have changed materials, we need to destroy the previous instanced material.
+        Destroy(_currentMaterial);
+        _currentMaterial = _modelRenderer.sharedMaterial;
+    }
+
+    /// <summary>
+    /// Applies the new texture based on which button was selected.
+    /// </summary>
+    /// <param name="buttonName">he name of the button pressed when selecting the Texture.</param>
+    public void SelectNewTexture(string buttonName)
+    {
+        SetTexture(TextureOptions.Find(x => x.ButtonName == buttonName).Texture);
+    }
+
+    private void SetTexture(Texture texture)
+    {
+        //Accessing the .material of a renderer will cause the material to instance if it has not already. 
+        _modelRenderer.material.mainTexture = texture;
+    }
 
     private void Start()
     {
-        modelMesh = GetComponent<MeshFilter>();
-        modelCollider = GetComponent<MeshCollider>();
-        modelRenderer = GetComponent<MeshRenderer>();
+        _modelMesh = GetComponent<MeshFilter>();
+        _modelCollider = GetComponent<MeshCollider>();
+        _modelRenderer = GetComponent<MeshRenderer>();
+
+        //Accessing the .material will cause Unity to instance the material. 
+        //We want this because the user will be changing material settings (textures) and we do not want to change the base material, just the version on this object.
+        //We need to store a reference to the instanced material so it can be cleaned up.
+        _currentMaterial = _modelRenderer.material;
     }
 
-    public void SelectNewMesh(string buttonName)
+    private void OnDestroy()
     {
-        Mesh newMesh = meshOptions.Find(x => x.buttonName == buttonName).mesh;
-        modelMesh.mesh = newMesh;
-        modelCollider.sharedMesh = newMesh;
+        Destroy(_currentMaterial);
     }
-
-    public void SelectNewMaterial(string buttonName)
-    {
-        modelRenderer.sharedMaterial = materialOptions.Find(x => x.buttonName == buttonName).material;
-    }
-
-    public void SelectNewTexture(string buttonName)
-    {
-        modelRenderer.sharedMaterial.mainTexture = textureOptions.Find(x => x.buttonName == buttonName).texture;
-    }
-
-    
-
 }
