@@ -676,9 +676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d8bfafba5f5244a88038d31d4b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _modelOptionsController: {fileID: 0}
-  _modelMovementController: {fileID: 0}
-  _effectsManager: {fileID: 0}
+  _modelOptionsController: {fileID: 754108960}
+  _modelMovementController: {fileID: 754108955}
+  _effectsManager: {fileID: 1678705512}
 --- !u!1 &1678705511
 GameObject:
   m_ObjectHideFlags: 0
