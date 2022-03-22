@@ -71,9 +71,14 @@ public class ModelOptionsController : MonoBehaviour
     public class TextureOption : DynamicButton
     {
         /// <summary>
-        /// The texture for this option.
+        /// The Base Map texture for this option.
         /// </summary>
         public Texture Texture;
+
+        /// <summary>
+        /// The Normal Map texture for this option.
+        /// </summary>
+        public Texture NormalTexture;
     }
 
     /// <summary>
@@ -93,9 +98,11 @@ public class ModelOptionsController : MonoBehaviour
     /// <param name="buttonName">The name of the button pressed when selecting the Material.</param>
     public void SelectNewMaterial(string buttonName)
     {
-        Texture texture = _modelRenderer.sharedMaterial.mainTexture;
+        TextureOption currTextureOption = TextureOptions.Find(x => _modelRenderer.sharedMaterial.mainTexture == x.Texture);
         _modelRenderer.sharedMaterial = MaterialOptions.Find(x => x.ButtonName == buttonName).Material;
-        SetTexture(texture);
+
+        //Apply the texture we have been using to the new material so that the only thing which changes is the material being used.
+        SetTexture(currTextureOption);
 
         //Now that we have changed materials, we need to destroy the previous instanced material.
         Destroy(_currentMaterial);
@@ -108,13 +115,20 @@ public class ModelOptionsController : MonoBehaviour
     /// <param name="buttonName">he name of the button pressed when selecting the Texture.</param>
     public void SelectNewTexture(string buttonName)
     {
-        SetTexture(TextureOptions.Find(x => x.ButtonName == buttonName).Texture);
+        SetTexture(TextureOptions.Find(x => x.ButtonName == buttonName));
     }
 
-    private void SetTexture(Texture texture)
+    private void SetTexture(TextureOption newTexture)
     {
         //Accessing the .material of a renderer will cause the material to instance if it has not already. 
-        _modelRenderer.material.mainTexture = texture;
+        _modelRenderer.material.mainTexture = newTexture.Texture;
+
+        if(newTexture.NormalTexture != null)
+            _modelRenderer.material.EnableKeyword("_NORMALMAP");
+        else
+            _modelRenderer.material.DisableKeyword("_NORMALMAP");
+
+        _modelRenderer.material.SetTexture("_BumpMap", newTexture.NormalTexture);
     }
 
     private void Start()
