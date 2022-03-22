@@ -16,6 +16,6 @@
             <ui:Button text="Materials" display-tooltip-when-elided="true" name="Materials-Button" class="button-style" />
             <ui:Button text="Reset Movement" display-tooltip-when-elided="true" name="ResetPosition-Button" class="button-style" />
         </ui:VisualElement>
-        <ui:ListView focusable="true" name="DynamicOptions-ListView" show-border="true" class="button-style" style="width: 185px; height: 185px; border-left-color: rgba(161, 161, 161, 0); border-right-color: rgba(161, 161, 161, 0); border-top-color: rgba(161, 161, 161, 0); border-bottom-color: rgba(161, 161, 161, 0);" />
+        <ui:ListView focusable="true" name="DynamicOptions-ListView" show-border="true" class="button-style" style="width: 180px; height: 185px; border-left-color: rgba(161, 161, 161, 0); border-right-color: rgba(161, 161, 161, 0); border-top-color: rgba(161, 161, 161, 0); border-bottom-color: rgba(161, 161, 161, 0);" />
     </ui:VisualElement>
 </ui:UXML>
