@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class UIController : MonoBehaviour
 {
     [SerializeField]
-    private ModelOptionsController _modelOptionsController;
+    private ModelAssetsController _modelOptionsController;
 
     [SerializeField]
     private ModelMovementController _modelMovementController;

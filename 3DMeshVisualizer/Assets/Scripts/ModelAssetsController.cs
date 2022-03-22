@@ -6,7 +6,7 @@ using UnityEngine;
 /// Handles the Mesh, Material and Texture options for the Model.
 /// </summary>
 [RequireComponent(typeof(MeshFilter), typeof(MeshCollider), typeof(MeshRenderer))]
-public class ModelOptionsController : MonoBehaviour
+public class ModelAssetsController : MonoBehaviour
 {
     /// <summary>
     /// Inspector set mesh options available to the User.
